@@ -1,0 +1,38 @@
+{
+  "name": "load-tests-framework",
+  "version": "1.0.0",
+  "description": "A simple framework for testing your API. You can use it for simple things until load tests.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "npm run lint",
+    "lint": "eslint . --ext .js",
+    "lint-fix": "eslint . --ext .js --fix"
+  },
+  "keywords": [
+    "api",
+    "fnctional",
+    "performance",
+    "simple",
+    "clean",
+    "load",
+    "test"
+  ],
+  "author": "Bruno Agostini",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bluebird": "^3.5.1",
+    "chai": "^4.1.2",
+    "random-float": "^1.0.0",
+    "random-int": "^1.0.0",
+    "sleep-promise": "^2.0.0",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.9.0"
+  }
+}
