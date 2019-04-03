@@ -46,6 +46,7 @@ Overview of method `addStep`:
  *
  * @param {string} testParams.name
  * @param {string} testParams.method Must be a valid HTTP verb, in lower case
+ * @param {object} testParams.headers Key is header name, Value is header value
  * @param {string} testParams.url IP + Port + Route. Protocol is optional
  * @param {number} testParams.expectedResponseCode A valid HTTP Response Code
  *
