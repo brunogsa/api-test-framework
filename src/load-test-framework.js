@@ -1,4 +1,5 @@
 const Promise = require('bluebird');
+const https = require('https');
 const axios = require('axios');
 const expect = require('chai').expect;
 const generateUid = require('uuid/v4');
@@ -232,6 +233,9 @@ function runTest(steps) {
 
 function openHttpRequest(sameParamsAxiosAccept) {
   if (!sameParamsAxiosAccept.data) delete sameParamsAxiosAccept.data;
+
+  // Auto-accepts self-signed certificates
+  sameParamsAxiosAccept.httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
   const promise = new Promise((resolve, reject) => {
     axios(sameParamsAxiosAccept)
