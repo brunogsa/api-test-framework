@@ -14,7 +14,7 @@ utilities.prettifyObj = function(obj) {
 };
 
 utilities.generateCurlFromStep = function(step) {
-  let curl = 'curl -si ';
+  let curl = 'curl -i ';
   curl += step.method === 'head' ? '--head ' : '-X ' + step.method.toUpperCase() + ' ';
 
   Object.keys(step.headers).forEach(header => {

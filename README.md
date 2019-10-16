@@ -51,7 +51,7 @@ Overview of method `addStep`:
  * @param {number} testParams.expectedResponseCode A valid HTTP Response Code
  *
  * @param {boolean} [testParams.isHttps=false]
- * @param {object} [testParams.body] The data you're sending in the body, if any
+ * @param {object | string} [testParams.body] The data you're sending in the body, if any
  * @param {function} [testParams.assertionFunction] Receives `res` as parameter from Axios. You can assert its res.body
  * @param {number} [testParams.sleepBeforeNextStepInMs=0]
  *

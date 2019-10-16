@@ -21,7 +21,7 @@ const loadTestFramework = {
  * @param {number} testParams.expectedResponseCode A valid HTTP Response Code
  *
  * @param {boolean} [testParams.isHttps=false]
- * @param {object} [testParams.body] The data you're sending in the body, if any
+ * @param {object | string} [testParams.body] The data you're sending in the body, if any
  * @param {function} [testParams.assertionFunction] Receives `res` as parameter from Axios. You can assert its res.body
  * @param {number} [testParams.sleepBeforeNextStepInMs=0]
  *
@@ -269,7 +269,7 @@ function runStep(step) {
 
   }).tap(res => {
     stepData.responseTime = computeElapsedTime(timeBeforeStep);
-    stepData.responseStatusCode = res.status;
+    stepData.responseStatusCode = res ? res.status : null;
 
   }).then(
     res => assertStatusCode(res, step.expectedResponseCode)
@@ -301,11 +301,14 @@ function computeElapsedTime(time) {
 
 function assertStatusCode(res, expectedStatusCode) {
   try {
+    expect(res).to.exist;
     expect(res.status).to.be.equal(expectedStatusCode);
 
   } catch (error) {
+    const body = res ? JSON.stringify(res.data) : null;
+
     return Promise.reject(
-      new Error(`Got errors asserting the Status Code: ${error} -> Received body: ${ JSON.stringify(res.data) }`)
+      new Error(`Got errors asserting the Status Code: ${error} -> Received body: ${body}`)
     );
   }
 
@@ -317,8 +320,10 @@ function applyUserAssertions(res, assertionFunction) {
     assertionFunction(res);
 
   } catch (error) {
+    const body = res ? JSON.stringify(res.data) : null;
+
     return Promise.reject(
-      new Error(`Got errors asserting Response: ${error} -> Received body: ${ JSON.stringify(res.data) }`)
+      new Error(`Got errors asserting Response: ${error} -> Received body: ${body}`)
     );
   }
 
@@ -326,6 +331,7 @@ function applyUserAssertions(res, assertionFunction) {
 }
 
 function defaultAssertionFunction(res) {
+  expect(res).to.exist;
   expect(res).to.have.property('data');
 }
 
