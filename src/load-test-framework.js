@@ -22,7 +22,8 @@ const loadTestFramework = {
  * @param {number} testParams.expectedResponseCode A valid HTTP Response Code
  *
  * @param {boolean} [testParams.isHttps=false]
- * @param {object | string} [testParams.body] The data you're sending in the body, if any
+ * @param {object | function} [testParams.headers]
+ * @param {object | string | function} [testParams.body] The data you're sending in the body, if any
  * @param {function} [testParams.assertionFunction] Receives `res` as parameter from Axios. You can assert its res.body
  * @param {number} [testParams.sleepBeforeNextStepInMs=0]
  *
@@ -268,8 +269,8 @@ function runStep(step) {
   return openHttpRequest({
     method: step.method,
     url: step.url,
-    data: step.body,
-    headers: step.headers,
+    data: typeof step.body === 'function' ? step.body() : step.body,
+    headers: typeof step.headers === 'function' ? step.headers() : step.headers,
 
   }).tap(res => {
     stepData.responseTime = computeElapsedTime(timeBeforeStep);
